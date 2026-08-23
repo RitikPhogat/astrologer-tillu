@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Astrologer Tillu | Personality Insight</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #fff;
+    background:
+        radial-gradient(circle at top, #312e81, #111827 50%, #020617);
+    overflow-x: hidden;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.container {
+    width: min(950px, 94%);
+    margin: 35px auto;
+    padding: 35px;
+    border-radius: 28px;
+    background: rgba(15, 23, 42, 0.84);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 25px 90px rgba(0,0,0,0.5);
+    backdrop-filter: blur(18px);
+}
+
+/* ================= INTRO ================= */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background:
+        radial-gradient(circle, #4c1d95, #111827 55%, #020617);
+
+    animation: introHide 1s forwards;
+    animation-delay: 6s;
+}
+
+.introBox {
+    animation: introZoom 1.3s ease;
+}
+
+.introBox h1 {
+    font-size: clamp(45px, 8vw, 80px);
+
+    background:
+        linear-gradient(
+            90deg,
+            #38bdf8,
+            #a78bfa,
+            #f472b6
+        );
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.introBox p {
+    margin-top: 12px;
+    color: #cbd5e1;
+}
+
+.creator {
+    margin-top: 35px;
+    color: #94a3b8;
+}
+
+.creator span {
+    display: block;
+    margin-top: 10px;
+    font-size: 42px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 20px #8b5cf6;
+}
+
+.loading {
+    margin-top: 35px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #64748b;
+}
+
+@keyframes introZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes introHide {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ================= HEADER ================= */
+
+.logoTitle {
+    text-align: center;
+    font-size: 46px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #38bdf8,
+            #a78bfa,
+            #f472b6
+        );
+
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.by {
+    text-align: center;
+    color: #a78bfa;
+    margin-top: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #94a3b8;
+    margin: 12px auto 30px;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+/* ================= PROGRESS ================= */
+
+.progressInfo {
+    display: flex;
+    justify-content: space-between;
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.progressBar {
+    height: 9px;
+    background: #1e293b;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    background:
+        linear-gradient(
+            90deg,
+            #06b6d4,
+            #8b5cf6,
+            #ec4899
+        );
+    transition: 0.5s;
+}
+
+.round {
+    color: #38bdf8;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.qnumber {
+    color: #a78bfa;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.question {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.options {
+    display: grid;
+    gap: 12px;
+}
+
+.option {
+    padding: 17px;
+    border-radius: 15px;
+
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.option:hover {
+    transform: translateY(-2px);
+    background: rgba(139,92,246,0.2);
+}
+
+.option.selected {
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    border-color: white;
+}
+
+.nextBtn {
+    padding: 14px 28px;
+    border-radius: 12px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 25px;
+
+    transition: 0.25s;
+}
+
+.nextBtn:hover {
+    transform: translateY(-2px);
+}
+
+.nextBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ================= RESULT ================= */
+
+#result {
+    display: none;
+}
+
+.resultTitle {
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 25px;
+}
+
+.baba {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,0.25),
+            rgba(37,99,235,0.15)
+        );
+
+    border: 1px solid rgba(167,139,250,0.3);
+
+    animation: babaIn 1s ease;
+}
+
+.babaIcon {
+    font-size: 60px;
+    animation: float 2s infinite alternate;
+}
+
+.baba h3 {
+    color: #c4b5fd;
+    font-size: 25px;
+    margin: 12px 0;
+}
+
+.baba p {
+    color: #e2e8f0;
+    line-height: 1.7;
+}
+
+.disclaimer {
+    color: #64748b !important;
+    font-size: 12px !important;
+    margin-top: 12px;
+}
+
+@keyframes babaIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+/* ================= RESULT CARDS ================= */
+
+.resultCard {
+    display: none;
+
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.resultCard.show {
+    display: block;
+    animation: cardIn 0.8s forwards;
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cardTitle {
+    color: #38bdf8;
+    font-size: 21px;
+    margin-bottom: 14px;
+}
+
+.resultCard p {
+    color: #dbe4ef;
+    line-height: 1.8;
+}
+
+/* ================= GAUGES ================= */
+
+.scoreGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.score {
+    text-align: center;
+    padding: 18px 8px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+}
+
+.gauge {
+    width: 115px;
+    height: 115px;
+    margin: auto;
+    position: relative;
+}
+
+.gauge svg {
+    width: 115px;
+    height: 115px;
+    transform: rotate(-90deg);
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255,255,255,0.08);
+    stroke-width: 9;
+}
+
+.gauge-progress {
+    fill: none;
+    stroke: #8b5cf6;
+    stroke-width: 9;
+    stroke-linecap: round;
+
+    stroke-dasharray: 314.16;
+    stroke-dashoffset: 314.16;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(139,92,246,0.8)
+        );
+
+    transition:
+        stroke-dashoffset 1.8s
+        cubic-bezier(.22,1,.36,1);
+}
+
+.gauge span {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.scoreName {
+    margin-top: 12px;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+/* ================= PERSONALITY ================= */
+
+.personality {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #c4b5fd;
+    margin-bottom: 15px;
+}
+
+/* ================= FINAL ================= */
+
+.final {
+    display: none;
+
+    margin-top: 25px;
+    padding: 28px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #312e81,
+            #581c87
+        );
+}
+
+.final h3 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.final p {
+    color: #e2e8f0;
+    line-height: 1.8;
+}
+
+/* ================= SHARE ================= */
+
+.shareBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 25px auto 0;
+
+    padding: 15px 25px;
+
+    border-radius: 13px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    font-size: 16px;
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 30px rgba(79,70,229,0.3);
+
+    transition: 0.3s;
+}
+
+.shareBtn:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.shareBtn svg {
+    width: 21px;
+    height: 21px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px) {
+
+    .container {
+        padding: 22px;
+    }
+
+    .logoTitle {
+        font-size: 34px;
+    }
+
+    .question {
+        font-size: 21px;
+    }
+
+    .scoreGrid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .score:last-child {
+        grid-column: 1 / -1;
+        width: 50%;
+        margin: auto;
+    }
+
+    .creator span {
+        font-size: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<div id="intro">
+
+    <div class="introBox">
+
+        <h1>Astrologer Tillu</h1>
+
+        <p>
+            Personality Insight — Discover the person behind your answers.
+        </p>
+
+        <div class="creator">
+
+            Created by
+
+            <span>
+                Ritik Phogat
+            </span>
+
+        </div>
+
+        <div class="loading">
+            PREPARING YOUR PERSONALITY TEST...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+<!-- =====================================================
+     QUIZ
+===================================================== -->
+
+<div id="quiz">
+
+    <h1 class="logoTitle">
+        Astrologer Tillu
+    </h1>
+
+    <div class="by">
+        Personality Insight • Created by
+        <strong>Ritik Phogat</strong>
+    </div>
+
+    <p class="subtitle">
+
+        Answer honestly. Your result is based on your
+        answers, not on what sounds nice.
+
+    </p>
+
+
+    <div class="progressInfo">
+
+        <span id="roundText">
+            Round 1
+        </span>
+
+        <span id="progressText">
+            0 / 25
+        </span>
+
+    </div>
+
+
+    <div class="progressBar">
+
+        <div id="progress"
+             class="progress">
+        </div>
+
+    </div>
+
+
+    <div id="round"
+         class="round">
+
+        Round 1 — Body Language & Non-Verbal Cues
+
+    </div>
+
+
+    <div id="qnumber"
+         class="qnumber">
+
+        Question 1 of 5
+
+    </div>
+
+
+    <div id="question"
+         class="question">
+
+        Loading...
+
+    </div>
+
+
+    <div id="options"
+         class="options">
+    </div>
+
+
+    <button id="next"
+            class="nextBtn"
+            disabled>
+
+        Next Question →
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     RESULT
+===================================================== -->
+
+<div id="result">
+
+    <div class="resultTitle">
+
+        Astrologer Tillu — Your Personality Reading
+
+    </div>
+
+
+    <div class="baba">
+
+        <div class="babaIcon">
+            🔮
+        </div>
+
+        <h3>
+            Baba Tillu IIT From Kanpur
+        </h3>
+
+        <p>
+            "Baba Tillu IIT From Kanpur has analyzed
+            your answers and revealed that..."
+        </p>
+
+        <p class="disclaimer">
+
+            *Baba Tillu is a fictional character.
+            This is an entertainment-based personality
+            reading and is not a scientific diagnosis.*
+
+        </p>
+
+    </div>
+
+
+    <!-- RESULT CARD 1 -->
+
+    <div id="card1"
+         class="resultCard">
+
+        <div class="cardTitle">
+
+            🌟 First — Your Strongest Quality
+
+        </div>
+
+        <p id="compliment"></p>
+
+    </div>
+
+
+    <!-- RESULT CARD 2 -->
+
+    <div id="card2"
+         class="resultCard">
+
+        <div class="cardTitle">
+
+            📊 Your Behavioral Score
+
+        </div>
+
+
+        <div class="scoreGrid">
+
+
+            <!-- BODY LANGUAGE -->
+
+            <div class="score">
+
+                <div class="gauge">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="gauge-bg"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                        <circle
+                            id="g1"
+                            class="gauge-progress"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+                    <span id="p1">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="scoreName">
+                    Body Language
+                </div>
+
+            </div>
+
+
+            <!-- BEHAVIOR -->
+
+            <div class="score">
+
+                <div class="gauge">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="gauge-bg"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                        <circle
+                            id="g2"
+                            class="gauge-progress"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+                    <span id="p2">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="scoreName">
+                    Behavior With Others
+                </div>
+
+            </div>
+
+
+            <!-- SITUATIONS -->
+
+            <div class="score">
+
+                <div class="gauge">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="gauge-bg"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                        <circle
+                            id="g3"
+                            class="gauge-progress"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+                    <span id="p3">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="scoreName">
+                    Situational Actions
+                </div>
+
+            </div>
+
+
+            <!-- COMMUNICATION -->
+
+            <div class="score">
+
+                <div class="gauge">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="gauge-bg"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                        <circle
+                            id="g4"
+                            class="gauge-progress"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+                    <span id="p4">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="scoreName">
+                    Communication
+                </div>
+
+            </div>
+
+
+            <!-- CONSISTENCY -->
+
+            <div class="score">
+
+                <div class="gauge">
+
+                    <svg viewBox="0 0 120 120">
+
+                        <circle
+                            class="gauge-bg"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                        <circle
+                            id="g5"
+                            class="gauge-progress"
+                            cx="60"
+                            cy="60"
+                            r="50">
+                        </circle>
+
+                    </svg>
+
+                    <span id="p5">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="scoreName">
+                    Consistency
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT CARD 3 -->
+
+    <div id="card3"
+         class="resultCard">
+
+        <div class="cardTitle">
+            🧠 Your Overall Personality
+        </div>
+
+        <div id="personality"
+             class="personality">
+        </div>
+
+        <p id="overall"></p>
+
+    </div>
+
+
+    <!-- RESULT CARD 4 -->
+
+    <div id="card4"
+         class="resultCard">
+
+        <div class="cardTitle">
+            🌱 Your Growth Area
+        </div>
+
+        <p id="growth"></p>
+
+    </div>
+
+
+    <!-- RESULT CARD 5 -->
+
+    <div id="card5"
+         class="resultCard">
+
+        <div class="cardTitle">
+            🤝 Baba Tillu's Experience
+        </div>
+
+        <p id="experience"></p>
+
+    </div>
+
+
+    <!-- RESULT CARD 6 -->
+
+    <div id="card6"
+         class="resultCard">
+
+        <div class="cardTitle">
+            🎯 Your Practical Challenge
+        </div>
+
+        <p id="challenge"></p>
+
+    </div>
+
+
+    <!-- RESULT CARD 7 -->
+
+    <div id="card7"
+         class="resultCard">
+
+        <div class="cardTitle">
+            🚀 Your Potential Benefit
+        </div>
+
+        <p id="benefit"></p>
+
+    </div>
+
+
+    <!-- FINAL RESULT -->
+
+    <div id="final"
+         class="final">
+
+        <h3>
+            ✨ Final Verdict
+        </h3>
+
+        <p id="finalText"></p>
+
+
+        <!-- SHARE BUTTON -->
+
+        <button class="shareBtn"
+                onclick="shareResult()">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <circle
+                    cx="18"
+                    cy="5"
+                    r="3">
+                </circle>
+
+                <circle
+                    cx="6"
+                    cy="12"
+                    r="3">
+                </circle>
+
+                <circle
+                    cx="18"
+                    cy="19"
+                    r="3">
+                </circle>
+
+                <line
+                    x1="8.59"
+                    y1="13.51"
+                    x2="15.42"
+                    y2="17.49">
+                </line>
+
+                <line
+                    x1="15.41"
+                    y1="6.51"
+                    x2="8.59"
+                    y2="10.49">
+                </line>
+
+            </svg>
+
+            Share My Personality Result
+
+        </button>
+
+
+        <button class="nextBtn"
+                onclick="location.reload()">
+
+            🔄 Take the Test Again
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   QUESTION BANK
+===================================================== */
+
+const bank = [
+
+/* ================= ROUND 1 ================= */
+
+{
+    round: 1,
+
+    question:
+        "How naturally do you maintain eye contact while talking to someone?",
+
+    options: [
+        ["I maintain natural and comfortable eye contact.", 5],
+        ["I maintain eye contact most of the time.", 4],
+        ["It depends on the situation.", 3],
+        ["I often avoid eye contact.", 2]
+    ]
+},
+
+{
+    round: 1,
+
+    question:
+        "How would you describe your body language when entering a new group?",
+
+    options: [
+        ["Relaxed, open, and confident.", 5],
+        ["Mostly comfortable.", 4],
+        ["A little reserved.", 3],
+        ["Very uncomfortable or closed off.", 2]
+    ]
+},
+
+{
+    round: 1,
+
+    question:
+        "How do you physically react when someone disagrees with you?",
+
+    options: [
+        ["I remain calm and relaxed.", 5],
+        ["I become slightly serious but stay controlled.", 4],
+        ["I sometimes become defensive.", 3],
+        ["I become visibly irritated.", 2]
+    ]
+},
+
+{
+    round: 1,
+
+    question:
+        "How often do you notice another person's body language during a conversation?",
+
+    options: [
+        ["I notice it naturally and often.", 5],
+        ["I notice it quite frequently.", 4],
+        ["I notice it sometimes.", 3],
+        ["I usually do not notice it.", 2]
+    ]
+},
+
+{
+    round: 1,
+
+    question:
+        "When you feel less confident, how does your posture usually change?",
+
+    options: [
+        ["I still remain composed.", 5],
+        ["It changes slightly.", 4],
+        ["My nervousness becomes noticeable.", 3],
+        ["I become very closed and uncomfortable.", 2]
+    ]
+},
+
+
+/* ================= ROUND 2 ================= */
+
+{
+    round: 2,
+
+    question:
+        "How do you normally treat waiters, drivers, helpers, or service staff?",
+
+    options: [
+        ["I always treat them with respect.", 5],
+        ["I am generally respectful.", 4],
+        ["It sometimes depends on my mood.", 3],
+        ["I can occasionally become rude.", 2]
+    ]
+},
+
+{
+    round: 2,
+
+    question:
+        "What do you do when someone crosses your personal boundaries?",
+
+    options: [
+        ["I calmly explain my boundary.", 5],
+        ["I clearly create some distance.", 4],
+        ["I tolerate it for a while.", 3],
+        ["I immediately become aggressive.", 2]
+    ]
+},
+
+{
+    round: 2,
+
+    question:
+        "How supportive are you when a friend is going through a difficult time?",
+
+    options: [
+        ["I consistently support them.", 5],
+        ["I am usually available.", 4],
+        ["It depends on the situation.", 3],
+        ["I usually stay focused on my own problems.", 2]
+    ]
+},
+
+{
+    round: 2,
+
+    question:
+        "If you have nothing to gain from someone, do you still treat them with the same respect?",
+
+    options: [
+        ["Yes, my respect remains the same.", 5],
+        ["Mostly, yes.", 4],
+        ["Sometimes my behavior changes.", 3],
+        ["My behavior can change significantly.", 2]
+    ]
+},
+
+{
+    round: 2,
+
+    question:
+        "How careful are you about respecting other people's privacy?",
+
+    options: [
+        ["I am extremely careful.", 5],
+        ["I am generally careful.", 4],
+        ["I sometimes make mistakes.", 3],
+        ["I do not pay much attention to it.", 2]
+    ]
+},
+
+
+/* ================= ROUND 3 ================= */
+
+{
+    round: 3,
+
+    question:
+        "What do you usually do when you are angry?",
+
+    options: [
+        ["I first try to calm myself down.", 5],
+        ["I take some time before responding.", 4],
+        ["I sometimes react emotionally.", 3],
+        ["I usually react immediately.", 2]
+    ]
+},
+
+{
+    round: 3,
+
+    question:
+        "What do you do when your own mistake causes a problem?",
+
+    options: [
+        ["I clearly accept responsibility.", 5],
+        ["I accept it and try to fix it.", 4],
+        ["I first explain why it happened.", 3],
+        ["I usually blame someone or something else.", 2]
+    ]
+},
+
+{
+    round: 3,
+
+    question:
+        "How do you make decisions under pressure?",
+
+    options: [
+        ["I calmly analyze the situation.", 5],
+        ["I usually remain composed.", 4],
+        ["I become nervous but manage.", 3],
+        ["I tend to panic or act impulsively.", 2]
+    ]
+},
+
+{
+    round: 3,
+
+    question:
+        "What do you normally do when someone insults you?",
+
+    options: [
+        ["I understand the situation before reacting.", 5],
+        ["I usually ignore it.", 4],
+        ["I sometimes respond.", 3],
+        ["I immediately confront the person.", 2]
+    ]
+},
+
+{
+    round: 3,
+
+    question:
+        "How seriously do you analyze your own behavior after failure?",
+
+    options: [
+        ["I seriously analyze what went wrong.", 5],
+        ["I usually reflect on it.", 4],
+        ["I think about it occasionally.", 3],
+        ["I mostly blame other factors.", 2]
+    ]
+},
+
+
+/* ================= ROUND 4 ================= */
+
+{
+    round: 4,
+
+    question:
+        "How actively do you listen when another person is speaking?",
+
+    options: [
+        ["I give them my full attention.", 5],
+        ["I listen most of the time.", 4],
+        ["I sometimes interrupt.", 3],
+        ["I usually prefer to speak rather than listen.", 2]
+    ]
+},
+
+{
+    round: 4,
+
+    question:
+        "When a friend shares a problem, what do you normally do?",
+
+    options: [
+        ["I first try to understand their feelings.", 5],
+        ["I listen and then offer advice.", 4],
+        ["I often share my own experience.", 3],
+        ["I quickly turn the conversation toward myself.", 2]
+    ]
+},
+
+{
+    round: 4,
+
+    question:
+        "What is your attitude toward gossip?",
+
+    options: [
+        ["I avoid it.", 5],
+        ["I rarely participate.", 4],
+        ["I sometimes listen.", 3],
+        ["I frequently participate.", 2]
+    ]
+},
+
+{
+    round: 4,
+
+    question:
+        "What do you do when you disagree with someone's opinion?",
+
+    options: [
+        ["I discuss it respectfully.", 5],
+        ["I calmly explain my point.", 4],
+        ["It can turn into a debate.", 3],
+        ["The conversation can become heated.", 2]
+    ]
+},
+
+{
+    round: 4,
+
+    question:
+        "How do you handle criticism about yourself?",
+
+    options: [
+        ["I listen and apply the useful part.", 5],
+        ["I seriously consider it.", 4],
+        ["I initially become defensive.", 3],
+        ["I usually reject it.", 2]
+    ]
+},
+
+
+/* ================= ROUND 5 ================= */
+
+{
+    round: 5,
+
+    question:
+        "How often do you complete the promises you make?",
+
+    options: [
+        ["Almost always.", 5],
+        ["Most of the time.", 4],
+        ["I occasionally fail to complete them.", 3],
+        ["I frequently fail to complete them.", 2]
+    ]
+},
+
+{
+    round: 5,
+
+    question:
+        "How closely do your words match your actions?",
+
+    options: [
+        ["They match very strongly.", 5],
+        ["They mostly match.", 4],
+        ["It depends on the situation.", 3],
+        ["There is often a noticeable difference.", 2]
+    ]
+},
+
+{
+    round: 5,
+
+    question:
+        "When you set a goal, how consistently do you work toward it?",
+
+    options: [
+        ["I work on it consistently.", 5],
+        ["I usually stay committed.", 4],
+        ["My motivation sometimes drops.", 3],
+        ["I frequently abandon goals.", 2]
+    ]
+},
+
+{
+    round: 5,
+
+    question:
+        "If someone points out a difference between your words and actions, how do you react?",
+
+    options: [
+        ["I seriously consider their feedback.", 5],
+        ["I explain myself and try to improve.", 4],
+        ["I initially become defensive.", 3],
+        ["I usually disagree with them.", 2]
+    ]
+},
+
+{
+    round: 5,
+
+    question:
+        "How important is being reliable to you?",
+
+    options: [
+        ["Extremely important.", 5],
+        ["Very important.", 4],
+        ["Important, but sometimes difficult.", 3],
+        ["It is not a major priority.", 2]
+    ]
+}
+
+];
+
+
+/* =====================================================
+   RANDOMIZE QUESTIONS
+===================================================== */
+
+function shuffle(array) {
+
+    const arr = [...array];
+
+    for (
+        let i = arr.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [arr[i], arr[j]] =
+            [arr[j], arr[i]];
+    }
+
+    return arr;
+}
+
+
+let questions = [];
+
+/*
+    Each round is shuffled separately.
+    Refreshing the page therefore changes
+    the order of questions.
+*/
+
+for (let round = 1; round <= 5; round++) {
+
+    questions.push(
+        ...shuffle(
+            bank.filter(
+                question =>
+                    question.round === round
+            )
+        )
+    );
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentQuestion = 0;
+let answers = [];
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const questionElement =
+    document.getElementById("question");
+
+const optionsElement =
+    document.getElementById("options");
+
+const nextButton =
+    document.getElementById("next");
+
+const progressElement =
+    document.getElementById("progress");
+
+const progressTextElement =
+    document.getElementById("progressText");
+
+const roundTextElement =
+    document.getElementById("roundText");
+
+const roundElement =
+    document.getElementById("round");
+
+const questionNumberElement =
+    document.getElementById("qnumber");
+
+
+/* =====================================================
+   SOUND EFFECTS
+===================================================== */
+
+let audioContext = null;
+
+function getAudioContext() {
+
+    if (!audioContext) {
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+    }
+
+    return audioContext;
+}
+
+
+function playTone(
+    frequency = 600,
+    duration = 0.08,
+    type = "sine"
+) {
+
+    try {
+
+        const context =
+            getAudioContext();
+
+        const oscillator =
+            context.createOscillator();
+
+        const gain =
+            context.createGain();
+
+        oscillator.type = type;
+
+        oscillator.frequency.value =
+            frequency;
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            context.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.05,
+            context.currentTime + 0.01
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            context.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            context.destination
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            context.currentTime +
+            duration +
+            0.02
+        );
+
+    } catch (error) {
+        // Sound is optional.
+    }
+}
+
+
+/* =====================================================
+   LOAD QUESTION
+===================================================== */
+
+function loadQuestion() {
+
+    const question =
+        questions[currentQuestion];
+
+    questionElement.textContent =
+        question.question;
+
+
+    questionNumberElement.textContent =
+        `Question ${
+            (currentQuestion % 5) + 1
+        } of 5`;
+
+
+    roundTextElement.textContent =
+        `Round ${question.round} of 5`;
+
+
+    const roundNames = {
+
+        1: "Round 1 — Body Language & Non-Verbal Cues",
+
+        2: "Round 2 — Behavior With Others",
+
+        3: "Round 3 — Situational Actions",
+
+        4: "Round 4 — Communication Style",
+
+        5: "Round 5 — Consistency: Words vs. Actions"
+
+    };
+
+
+    roundElement.textContent =
+        roundNames[question.round];
+
+
+    progressTextElement.textContent =
+        `${currentQuestion} / 25`;
+
+
+    progressElement.style.width =
+        `${(currentQuestion / 25) * 100}%`;
+
+
+    optionsElement.innerHTML = "";
+
+    nextButton.disabled = true;
+
+
+    question.options.forEach(
+        (option) => {
+
+            const optionElement =
+                document.createElement("div");
+
+            optionElement.className =
+                "option";
+
+            optionElement.textContent =
+                option[0];
+
+
+            optionElement.onclick =
+                () => {
+
+                    playTone(
+                        520,
+                        0.06
+                    );
+
+
+                    document
+                        .querySelectorAll(".option")
+                        .forEach(
+                            element =>
+                                element.classList
+                                    .remove("selected")
+                        );
+
+
+                    optionElement.classList
+                        .add("selected");
+
+
+                    answers[currentQuestion] =
+                        option[1];
+
+
+                    nextButton.disabled =
+                        false;
+
+                };
+
+
+            optionsElement.appendChild(
+                optionElement
+            );
+
+        }
+    );
+}
+
+
+/* =====================================================
+   NEXT QUESTION
+===================================================== */
+
+nextButton.onclick = () => {
+
+    playTone(
+        700,
+        0.07,
+        "triangle"
+    );
+
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion <
+        questions.length
+    ) {
+
+        loadQuestion();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    } else {
+
+        showResult();
+
+    }
+};
+
+
+/* =====================================================
+   CALCULATE CATEGORY SCORES
+===================================================== */
+
+function getScores() {
+
+    const scores = [];
+
+
+    for (
+        let category = 0;
+        category < 5;
+        category++
+    ) {
+
+        scores.push(
+
+            answers
+                .slice(
+                    category * 5,
+                    category * 5 + 5
+                )
+                .reduce(
+                    (total, score) =>
+                        total + score,
+                    0
+                )
+
+        );
+    }
+
+
+    return scores;
+}
+
+
+/* =====================================================
+   PERSONALITY TYPES
+===================================================== */
+
+function getPersonality(scores) {
+
+    const total =
+        scores.reduce(
+            (a, b) => a + b,
+            0
+        );
+
+
+    if (total >= 112) {
+
+        return {
+
+            name: "The Consistent Leader",
+
+            text:
+                "Your answers show a strong combination of confidence, responsibility, emotional control, and consistency. You generally appear comfortable handling situations and taking responsibility for your actions."
+
+        };
+    }
+
+
+    if (total >= 95) {
+
+        return {
+
+            name: "The Reliable Builder",
+
+            text:
+                "You show several strong practical qualities. You generally maintain balanced behavior with others and appear open to improvement, although consistency or confidence may still have room to grow."
+
+        };
+    }
+
+
+    if (total >= 78) {
+
+        return {
+
+            name: "The Balanced Explorer",
+
+            text:
+                "Your personality appears fairly balanced. You show maturity and thoughtfulness in some situations, while your reactions, communication, or consistency may change depending on the circumstances."
+
+        };
+    }
+
+
+    return {
+
+        name: "The Potential in Progress",
+
+        text:
+            "Your answers suggest that your personality is still developing across several areas. You have identifiable strengths, while deliberate practice with reactions, communication, and consistency could help you grow."
+
+    };
+}
+
+
+/* =====================================================
+   SHOW RESULT
+===================================================== */
+
+function showResult() {
+
+    document.getElementById("quiz")
+        .style.display = "none";
+
+
+    document.getElementById("result")
+        .style.display = "block";
+
+
+    const scores =
+        getScores();
+
+
+    const personality =
+        getPersonality(scores);
+
+
+    const strongest =
+        scores.indexOf(
+            Math.max(...scores)
+        );
+
+
+    const growthArea =
+        scores.indexOf(
+            Math.min(...scores)
+        );
+
+
+    const compliments = [
+
+        "Your answers indicate that you generally have a composed approach to body language and social situations. This can be a useful quality when building confidence and making a positive first impression.",
+
+        "Your answers suggest that respect toward other people is an important part of your behavior. That can become a strong foundation for healthy relationships.",
+
+        "Your responses show that you have the ability to handle difficult situations thoughtfully. That quality can become especially valuable when pressure is high.",
+
+        "Your communication responses suggest that you have the ability to understand other people and express yourself. Strong listening can become one of your biggest strengths.",
+
+        "Your answers show that reliability and keeping your word matter to you. Consistency can become a powerful personal strength when it is maintained over time."
+
+    ];
+
+
+    const growthAreas = [
+
+        "You may sometimes hold yourself back in uncomfortable situations. Practicing relaxed posture, natural eye contact, and calm physical presence can help.",
+
+        "Your mood may occasionally influence how you respond to people. Practicing consistent respect, even when you are frustrated, can strengthen your character.",
+
+        "Your reactions under pressure may have room for improvement. Try using a short pause before responding when you feel angry or stressed.",
+
+        "You may sometimes prioritize expressing your own opinion before fully understanding the other person. Practice listening completely before responding.",
+
+        "There may occasionally be a gap between intentions and actions. Writing down small promises and completing them can improve consistency."
+
+    ];
+
+
+    const experiences = [
+
+        "One useful lesson from experience is that confidence is built through repeated small actions. You do not need to change everything at once.",
+
+        "Respect becomes most meaningful when it remains consistent, especially when there is nothing to gain from the interaction.",
+
+        "Emotional control does not mean never getting angry. It means learning how to choose your response instead of allowing the first emotion to choose it for you.",
+
+        "Good communication is not only about speaking clearly. It is also about making the other person feel heard and understood.",
+
+        "Reliability is built through small promises kept consistently. Over time, your actions become stronger evidence of your character than your words."
+
+    ];
+
+
+    const challenges = [
+
+        "For the next 7 days, practice relaxed posture and natural eye contact during at least one meaningful conversation every day.",
+
+        "For the next 7 days, consciously treat every service worker and stranger with the same level of respect you would give someone important to you.",
+
+        "For the next 7 days, use a 10-second pause before responding whenever you feel genuinely angry.",
+
+        "For the next 7 days, make a conscious effort to let the other person finish speaking before you respond.",
+
+        "For the next 7 days, make three small promises to yourself and complete all three."
+
+    ];
+
+
+    const benefits = [
+
+        "Improving your body language can strengthen your confidence, communication, and first impression.",
+
+        "Consistent respect can strengthen your relationships and make people see you as more trustworthy.",
+
+        "Better emotional control can help you make clearer decisions during difficult situations.",
+
+        "Better listening can improve relationships, teamwork, and the quality of your conversations.",
+
+        "A stronger match between your words and actions can increase both reliability and self-trust."
+
+    ];
+
+
+    document.getElementById("compliment")
+        .textContent =
+        compliments[strongest];
+
+
+    document.getElementById("growth")
+        .textContent =
+        growthAreas[growthArea];
+
+
+    document.getElementById("personality")
+        .textContent =
+        personality.name;
+
+
+    document.getElementById("overall")
+        .textContent =
+        personality.text;
+
+
+    document.getElementById("experience")
+        .textContent =
+        experiences[growthArea];
+
+
+    document.getElementById("challenge")
+        .textContent =
+        challenges[growthArea];
+
+
+    document.getElementById("benefit")
+        .textContent =
+        benefits[growthArea];
+
+
+    const areaNames = [
+
+        "Body Language",
+
+        "Behavior With Others",
+
+        "Situational Actions",
+
+        "Communication",
+
+        "Consistency"
+
+    ];
+
+
+    document.getElementById("finalText")
+        .textContent =
+
+        `Your strongest area is ${
+            areaNames[strongest]
+        }, while ${
+            areaNames[growthArea]
+        } appears to be your current growth area. 
+        If you consistently work on this area while using your existing strengths, 
+        you can develop a more balanced and reliable version of yourself.`;
+
+
+    animateResults(scores);
+}
+
+
+/* =====================================================
+   ANIMATED RESULT REVEAL
+===================================================== */
+
+function animateResults(scores) {
+
+    const cards = [
+
+        "card1",
+        "card2",
+        "card3",
+        "card4",
+        "card5",
+        "card6",
+        "card7"
+
+    ];
+
+
+    cards.forEach(
+        (id, index) => {
+
+            setTimeout(
+                () => {
+
+                    const card =
+                        document.getElementById(id);
+
+
+                    card.classList.add("show");
+
+
+                    card.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+
+                    playTone(
+                        500 + index * 60,
+                        0.08,
+                        "sine"
+                    );
+
+
+                    if (id === "card2") {
+
+                        animateGauges(
+                            scores
+                        );
+
+                    }
+
+                },
+
+                1200 + index * 1000
+            );
+
+        }
+    );
+
+
+    setTimeout(
+        () => {
+
+            document.getElementById("final")
+                .style.display = "block";
+
+
+            document.getElementById("final")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+
+            playTone(
+                900,
+                0.12,
+                "sine"
+            );
+
+        },
+
+        9000
+    );
+}
+
+
+/* =====================================================
+   ANIMATED SVG GAUGES
+===================================================== */
+
+function animateGauges(scores) {
+
+    scores.forEach(
+        (score, index) => {
+
+            const percentage =
+                Math.round(
+                    (score / 25) * 100
+                );
+
+
+            const circle =
+                document.getElementById(
+                    "g" + (index + 1)
+                );
+
+
+            const text =
+                document.getElementById(
+                    "p" + (index + 1)
+                );
+
+
+            const circumference =
+                314.16;
+
+
+            circle.style.strokeDashoffset =
+                circumference;
+
+
+            setTimeout(
+                () => {
+
+                    circle.style.strokeDashoffset =
+
+                        circumference -
+                        circumference *
+                        percentage /
+                        100;
+
+                },
+
+                100
+            );
+
+
+            const startTime =
+                performance.now();
+
+
+            function count(now) {
+
+                const progress =
+                    Math.min(
+                        (now - startTime) / 1500,
+                        1
+                    );
+
+
+                const eased =
+                    1 -
+                    Math.pow(
+                        1 - progress,
+                        3
+                    );
+
+
+                const value =
+                    Math.round(
+                        eased * percentage
+                    );
+
+
+                text.textContent =
+                    value + "%";
+
+
+                if (progress < 1) {
+
+                    requestAnimationFrame(
+                        count
+                    );
+
+                }
+
+            }
+
+
+            requestAnimationFrame(
+                count
+            );
+
+        }
+    );
+}
+
+
+/* =====================================================
+   SHARE RESULT
+===================================================== */
+
+async function shareResult() {
+
+    const scores =
+        getScores();
+
+
+    const personality =
+        getPersonality(scores);
+
+
+    const total =
+        scores.reduce(
+            (a, b) => a + b,
+            0
+        );
+
+
+    const percentage =
+        Math.round(
+            (total / 125) * 100
+        );
+
+
+    const shareText =
+
+`🔮 My Astrologer Tillu Personality Result
+
+Personality:
+${personality.name}
+
+Overall Score:
+${percentage}%
+
+Body Language:
+${Math.round(scores[0] / 25 * 100)}%
+
+Behavior With Others:
+${Math.round(scores[1] / 25 * 100)}%
+
+Situational Actions:
+${Math.round(scores[2] / 25 * 100)}%
+
+Communication:
+${Math.round(scores[3] / 25 * 100)}%
+
+Consistency:
+${Math.round(scores[4] / 25 * 100)}%
+
+Created by Ritik Phogat`;
+
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share({
+
+                title:
+                    "My Astrologer Tillu Personality Result",
+
+                text:
+                    shareText
+
+            });
+
+            return;
+
+        } catch (error) {
+
+            if (
+                error.name ===
+                "AbortError"
+            ) {
+
+                return;
+
+            }
+        }
+    }
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            shareText
+        );
+
+
+        alert(
+            "✅ Your personality result has been copied!"
+        );
+
+    } catch (error) {
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+
+        textarea.value =
+            shareText;
+
+
+        document.body.appendChild(
+            textarea
+        );
+
+
+        textarea.select();
+
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        textarea.remove();
+
+
+        alert(
+            "✅ Your personality result has been copied!"
+        );
+    }
+}
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
